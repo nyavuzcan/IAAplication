@@ -1,6 +1,6 @@
 package com.company;
 
-import sun.management.Agent;
+
 
 import java.util.Random;
 
@@ -58,7 +58,7 @@ public void WriteBoard(){
   System.out.println("TOPLAM COUNT:"+size);
 }
 
-public void SetAgentsOnBoard(Agents one, Agent two, Agent three){
+public void SetAgentsOnBoard(Agents one, Agents two, Agents three){
     Random random = new Random();
 
    while (true){
