@@ -1,7 +1,9 @@
 package com.company;
 
+import com.company.datastructure.Color;
+
 public class Red extends Food {
   public Red(){
-   color=-1;
+   color= Color.RED.getValue();
   }
 }

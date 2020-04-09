@@ -1,13 +1,15 @@
 package com.company;
 
-import sun.management.Agent;
+import com.company.datastructure.Location;
+import com.company.datastructure.StepAndLocation;
+
 
 import java.util.Random;
 
 public class Board {
   final static Integer[][] BOARDARRAY = new Integer[1000][1000];
   final static  Integer boardSize = BOARDARRAY.length * BOARDARRAY.length;
-
+  BoardFeatures boardFeatures;
   public Board() {
     this.SetupGame();
   }
@@ -15,7 +17,7 @@ public class Board {
   public void SetupGame() {
     this.FillWithEmptyZero();
     this.FillWithGreenAndRed();
-    this.WriteBoard();
+    this.boardFeatures=new BoardFeatures();
 
   }
 
@@ -58,18 +60,17 @@ public void WriteBoard(){
   System.out.println("TOPLAM COUNT:"+size);
 }
 
-public void SetAgentsOnBoard(Agents one, Agent two, Agent three){
+public void SetAgentOnBoard(Agents agent){
     Random random = new Random();
-
    while (true){
      int numberx = random.nextInt(1000);
      int numbery = random.nextInt(1000);
     if (BOARDARRAY[numberx][numbery]==0) {
-      BOARDARRAY[numberx][numbery] = one.getAgentCode();
+      BOARDARRAY[numberx][numbery] = agent.getAgentCode();
+      agent.locations.add(new StepAndLocation(0,new Location(numberx,numbery)));
       break;
     } else continue;
    }
-
 
   }
 
