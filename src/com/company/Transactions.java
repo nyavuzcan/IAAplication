@@ -1,6 +1,7 @@
 package com.company;
 
 import com.company.datastructure.Color;
+import com.company.datastructure.Location;
 import com.company.datastructure.NearestFood;
 import com.company.datastructure.StepAndLocation;
 
@@ -10,6 +11,7 @@ public class Transactions {
 
   public Transactions(Agents agent) {
     this.agent = agent;
+   // this.isThereAnyRed(agent.getLastLocation().getLocation());
   }
 
   public NearestFood CalculateNearestFood() {
@@ -26,16 +28,19 @@ public class Transactions {
       }
       i++;
     }
+    if (BoardFeatures.GREENFOOD.size()==0){
+      return null;
+    }
     return new NearestFood(BoardFeatures.GREENFOOD.get(tempI), tempDistance);
   }
 
-  public boolean isThereAnyRed(NearestFood nearestFood){
+  public boolean isThereAnyRed(Location location){
 
     for (StepAndLocation stepAndLocationRed: BoardFeatures.REDFOOD){
         if (stepAndLocationRed.getLocation().getxIndis()==agent.getLastLocation().getLocation().getxIndis()){
           if (agent.getLastLocation().getLocation().getyIndis()<stepAndLocationRed.getLocation().getyIndis() &&
               stepAndLocationRed.getLocation().getyIndis() <
-          nearestFood.getLocation().getyIndis()
+          location.getyIndis()
           ){
             return true;
           }
@@ -43,7 +48,7 @@ public class Transactions {
         }
         if (stepAndLocationRed.getLocation().getyIndis()==agent.getLastLocation().getLocation().getyIndis()){
           if (agent.getLastLocation().getLocation().getxIndis()<stepAndLocationRed.getLocation().getxIndis()&&
-          stepAndLocationRed.getLocation().getxIndis()<nearestFood.getLocation().getxIndis()
+          stepAndLocationRed.getLocation().getxIndis()<location.getxIndis()
           ){
             return true;
           }

@@ -15,34 +15,36 @@ public class BoardFeatures {
 
   public BoardFeatures(){
 
-    updateValues();
+    BoardFeatures.updateValues();
   }
 
 
 
 
-  public void updateValues(){
-    this.getGreenFoodsFromBoard();
-    this.getRedFoodsFromBoard();
+  public static void updateValues(){
+    getGreenFoodsFromBoard();
+    getRedFoodsFromBoard();
   }
 
 
-  public void getGreenFoodsFromBoard() {
-
+  public static void  getGreenFoodsFromBoard() {
+   GREENFOOD=new ArrayList<>();
     for (int i = 0; i < Board.BOARDARRAY[0].length; i++) {
       for (int j = 0; j < Board.BOARDARRAY.length; j++) {
         if (Board.BOARDARRAY[i][j] == Color.GREEN.getValue()) {
+
           GREENFOOD.add(new StepAndLocation(new Location(i,j)));
         }
       }
     }
-
   }
 
-  public void getRedFoodsFromBoard() {
+  public static void  getRedFoodsFromBoard() {
+    REDFOOD=new ArrayList<>();
     for (int i = 0; i < Board.BOARDARRAY[0].length; i++) {
       for (int j = 0; j < Board.BOARDARRAY.length; j++) {
         if (Board.BOARDARRAY[i][j] == Color.RED.getValue()) {
+
           REDFOOD.add(new StepAndLocation(new Location(i,j)));
         }
       }

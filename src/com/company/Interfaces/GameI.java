@@ -5,7 +5,7 @@ import com.company.Agents;
 import java.util.ArrayList;
 
 public interface GameI {
-  void startGame(ArrayList<Agents> allAgents);
+  ArrayList<Agents> startGame(ArrayList<Agents> allAgents);
   void stepIn(Agents agents);
 
 }
