@@ -9,15 +9,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class Game implements GameI {
+public class GameUnknow implements GameI {
   long start = System.currentTimeMillis();
-
-
-
   List<AgentAndNearestFood> agentAndNearestFoods = new ArrayList<>();
   Behavior behavior = new Behavior();
   ArrayList<Agents> rtAgent = new ArrayList<>();
-
   @Override
   public ArrayList<Agents> startGame(ArrayList<Agents> allAgents) {
     while (BoardFeatures.GREENFOOD.size() != 0) {
@@ -30,12 +26,11 @@ public class Game implements GameI {
       agentAndNearestFoods = new ArrayList<>();
     }
     behavior.writeScoresStepsAnd(rtAgent);
-     return allAgents;
+    return allAgents;
   }
 
   @Override
   public void stepIn(Agents agent) {
-
     NearestFood nearestFood = agent.transactions.CalculateNearestFood();
 
     if (Objects.nonNull(nearestFood)) {
@@ -49,77 +44,33 @@ public class Game implements GameI {
 
       behavior.writeScoresStepsAnd(rtAgent);
       System.out.println(rtAgent);
+
     }
 
   }
 
-  public void stepSetUp(List<AgentAndNearestFood> agentAndNearestFoods) {
+
+  public void stepSetUp(List<AgentAndNearestFood> agentAndNearestFoods){
     if (behavior.isAllofDifferent(agentAndNearestFoods)) {
-      stepOneOrTwo(agentAndNearestFoods.get(0).getAgents(), agentAndNearestFoods.get(0).getNearestFood());
-      stepOneOrTwo(agentAndNearestFoods.get(1).getAgents(), agentAndNearestFoods.get(1).getNearestFood());
+    stepOneOrTwo(agentAndNearestFoods.get(0).getAgents(), agentAndNearestFoods.get(0).getNearestFood());
+    stepOneOrTwo(agentAndNearestFoods.get(1).getAgents(), agentAndNearestFoods.get(1).getNearestFood());
+    stepOneOrTwo(agentAndNearestFoods.get(2).getAgents(), agentAndNearestFoods.get(2).getNearestFood());
+  } else if (behavior.isLocationsEqual(agentAndNearestFoods.get(0).getNearestFood().getLocation(),
+        agentAndNearestFoods.get(0).getNearestFood().getLocation()
+        )){
+    Integer count=  behavior.checkNeighbor(agentAndNearestFoods.get(0));
+    if (count<3){
       stepOneOrTwo(agentAndNearestFoods.get(2).getAgents(), agentAndNearestFoods.get(2).getNearestFood());
-    } else if (behavior.isAllOfSame(agentAndNearestFoods)) {
-      Agents tempAgent = whichOneMoreNear(agentAndNearestFoods.get(0).getAgents(), agentAndNearestFoods.get(1).getAgents());
-      Agents tempWinner = whichOneMoreNear(tempAgent, agentAndNearestFoods.get(2).getAgents());
-      Integer winnerIndes = behavior.whoIsTheWinner(agentAndNearestFoods, tempWinner);
-      stepOneOrTwo(agentAndNearestFoods.get(winnerIndes).getAgents(), agentAndNearestFoods.get(winnerIndes).getNearestFood());
-      if (2 - winnerIndes == 0) {
-        stepOneOrTwo(agentAndNearestFoods.get(0).getAgents(), agentAndNearestFoods.get(0).getAgents().transactions.CalculateNearestFood());
-        stepOneOrTwo(agentAndNearestFoods.get(1).getAgents(), agentAndNearestFoods.get(1).getAgents().transactions.CalculateNearestFood());
-      } else if (2 - winnerIndes == 1) {
-        stepOneOrTwo(agentAndNearestFoods.get(0).getAgents(), agentAndNearestFoods.get(0).getAgents().transactions.CalculateNearestFood());
-        stepOneOrTwo(agentAndNearestFoods.get(2).getAgents(), agentAndNearestFoods.get(2).getAgents().transactions.CalculateNearestFood());
+      stepOneOrTwo(agentAndNearestFoods.get(0).getAgents(), agentAndNearestFoods.get(0).getAgents().transactions.CalculateNearestFood());
+      stepOneOrTwo(agentAndNearestFoods.get(1).getAgents(), agentAndNearestFoods.get(1).getAgents().transactions.CalculateNearestFood());
 
-      } else if (2 - winnerIndes == 2) {
-        stepOneOrTwo(agentAndNearestFoods.get(1).getAgents(), agentAndNearestFoods.get(1).getAgents().transactions.CalculateNearestFood());
-        stepOneOrTwo(agentAndNearestFoods.get(2).getAgents(), agentAndNearestFoods.get(2).getAgents().transactions.CalculateNearestFood());
-
-      }
-    } else if (behavior.isLocationsEqual(agentAndNearestFoods.get(0).getNearestFood().getLocation(),
-        agentAndNearestFoods.get(1).getNearestFood().getLocation()
-    ) && !(behavior.isLocationsEqual(agentAndNearestFoods.get(2).getNearestFood().getLocation(),
-        agentAndNearestFoods.get(1).getNearestFood().getLocation())) && (behavior.isLocationsEqual(agentAndNearestFoods.get(2).getNearestFood().getLocation(),
-        agentAndNearestFoods.get(0).getNearestFood().getLocation()))) {
-      stepOneOrTwo(agentAndNearestFoods.get(2).getAgents(), agentAndNearestFoods.get(2).getNearestFood());
-      Agents tempWinner = whichOneMoreNear(agentAndNearestFoods.get(0).getAgents(), agentAndNearestFoods.get(1).getAgents());
-      if (tempWinner.equals(agentAndNearestFoods.get(0).getAgents())) {
-        stepOneOrTwo(agentAndNearestFoods.get(0).getAgents(), agentAndNearestFoods.get(0).getNearestFood());
-        stepOneOrTwo(agentAndNearestFoods.get(1).getAgents(), agentAndNearestFoods.get(1).getAgents().transactions.CalculateNearestFood());
-      } else {
-        stepOneOrTwo(agentAndNearestFoods.get(1).getAgents(), agentAndNearestFoods.get(1).getNearestFood());
-        stepOneOrTwo(agentAndNearestFoods.get(0).getAgents(), agentAndNearestFoods.get(0).getAgents().transactions.CalculateNearestFood());
-      }
-
-    } else {
+    }else {
       stepOneOrTwo(agentAndNearestFoods.get(0).getAgents(), agentAndNearestFoods.get(0).getNearestFood());
       stepOneOrTwo(agentAndNearestFoods.get(1).getAgents(), agentAndNearestFoods.get(1).getAgents().transactions.CalculateNearestFood());
       stepOneOrTwo(agentAndNearestFoods.get(2).getAgents(), agentAndNearestFoods.get(2).getAgents().transactions.CalculateNearestFood());
 
     }
-
-  }
-
-  public Agents whichOneMoreNear(Agents agentFirst, Agents agentSecond) {
-
-    if (agentFirst.transactions.CalculateNearestFood().getDifferenceNumber() < agentSecond.transactions.CalculateNearestFood().getDifferenceNumber()) {
-      agentFirst.transactions.isThereAnyRed(agentFirst.getLastLocation().getLocation());
-      return agentFirst;
-    } else if (agentFirst.transactions.CalculateNearestFood().getDifferenceNumber() > agentSecond.transactions.CalculateNearestFood().getDifferenceNumber()) {
-      return agentSecond;
-    } else return checkClockWay(agentFirst, agentSecond);
-  }
-
-  public Agents checkClockWay(Agents agentFirst, Agents agentSecond) {
-    //left one has avantage
-    if (agentFirst.transactions.CalculateNearestFood().getLocation().getxIndis() == agentSecond.transactions.CalculateNearestFood().getLocation().getxIndis()) {
-      Integer tempY = agentFirst.transactions.CalculateNearestFood().getLocation().getyIndis();
-      if (agentFirst.getLastLocation().getLocation().getxIndis() < tempY) {
-        return agentFirst;
-      }
-    } else {
-      return agentSecond;
     }
-    return agentSecond;
   }
 
   public Agents stepOneOrTwo(Agents agents, NearestFood nearestFood) {
@@ -199,5 +150,4 @@ public class Game implements GameI {
     BoardFeatures.updateValues();
     return agent;
   }
-
 }

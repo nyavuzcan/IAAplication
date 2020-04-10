@@ -1,6 +1,7 @@
 package com.company;
 
 import com.company.datastructure.AgentAndNearestFood;
+import com.company.datastructure.Color;
 import com.company.datastructure.Location;
 
 import java.util.ArrayList;
@@ -48,12 +49,41 @@ public class Behavior {
   public void writeScoresStepsAnd(ArrayList<Agents> agents){
     int i =0;
     for (Agents agent : agents){
-      System.out.println(i+".Agent "+"Agent Code: "+agent.getAgentCode()+" Total Score :"+agent.getLastScore()+ "Total Step: "
+      System.out.println(i+".Agent "+"Agent Code: "+agent.getAgentCode()+" Total Score :"+agent.getLastScore()+ " Total Step: "
       +agent.step);
 
       i++;
     }
 
+  }
+
+  public Integer checkNeighbor(AgentAndNearestFood agentAndNearestFood){
+    Integer xIndis=agentAndNearestFood.getNearestFood().getLocation().getxIndis();
+    Integer yIndis=agentAndNearestFood.getNearestFood().getLocation().getyIndis();
+    int count=0;
+      try {
+
+
+    if (Board.BOARDARRAY[xIndis+1][yIndis]== Color.GREEN.getValue()){
+      count++;
+    }
+    if (Board.BOARDARRAY[xIndis+2][yIndis]== Color.GREEN.getValue()){
+      count++;
+    }
+    if (Board.BOARDARRAY[xIndis][yIndis+1]== Color.GREEN.getValue()){
+      count++;
+    }
+    if (Board.BOARDARRAY[xIndis][yIndis+2]== Color.GREEN.getValue()){
+      count++;
+    }
+      }
+
+
+      catch (ArrayIndexOutOfBoundsException e){
+        return 0;
+
+    }
+    return count;
   }
 
 

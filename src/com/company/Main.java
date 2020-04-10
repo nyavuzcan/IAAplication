@@ -28,8 +28,36 @@ public class Main {
         agents.add(agentY);
         agents.add(agentZ);
 
-        GameI gameI =new Game();
-        gameI.startGame(agents);
+
+
+        GameI gameIAgentKnowEachOther = new Game();
+        System.out.println("START GAME FOR AGENTS (THEY KNOW EACH OTHER)");
+        gameIAgentKnowEachOther.startGame(agents);
+
+
+
+        //HOCAM PROJE AJANLARIN BİRBİRLERİNİ TANIMADIĞI SENARYOYU YORUMA ALDIK
+        //UZUN SÜRDÜĞÜ İÇİN BU HALİYLE İLK KISIM CIKTI VERİCEK
+        //COMMENT'İ KALDIRARSANIZ İKİ OUTPUTU'DA GÖREBİLİRSİNİZ.
+
+        Board boardSecond = new Board();
+        Agents agentX1 = new Agents(Color.AGENTX.getValue());
+        Agents agentY1 = new Agents(Color.AGENTY.getValue());
+        Agents agentZ1 = new Agents(Color.AGENTZ.getValue());
+
+        boardSecond.SetAgentOnBoard(agentX1);
+        boardSecond.SetAgentOnBoard(agentY1);
+        boardSecond.SetAgentOnBoard(agentZ1);
+
+
+        ArrayList<Agents> agentsSecond =new ArrayList<>();
+        agentsSecond.add(agentX1);
+        agentsSecond.add(agentY1);
+        agentsSecond.add(agentZ1);
+
+        System.out.println("START GAME FOR AGENTS (THEY DON'T KNOW EACH OTHER)");
+        GameI gameI =new GameUnknow();
+       // gameI.startGame(agentsSecond);
 
             }
 
