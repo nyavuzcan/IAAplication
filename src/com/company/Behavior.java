@@ -45,6 +45,16 @@ public class Behavior {
     return 1;
   }
 
+  public void writeScoresStepsAnd(ArrayList<Agents> agents){
+    int i =0;
+    for (Agents agent : agents){
+      System.out.println(i+".Agent "+"Agent Code: "+agent.getAgentCode()+" Total Score :"+agent.getLastScore()+ "Total Step: "
+      +agent.step);
+
+      i++;
+    }
+
+  }
 
 
 

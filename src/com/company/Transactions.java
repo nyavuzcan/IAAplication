@@ -11,7 +11,6 @@ public class Transactions {
 
   public Transactions(Agents agent) {
     this.agent = agent;
-   // this.isThereAnyRed(agent.getLastLocation().getLocation());
   }
 
   public NearestFood CalculateNearestFood() {
@@ -28,33 +27,33 @@ public class Transactions {
       }
       i++;
     }
-    if (BoardFeatures.GREENFOOD.size()==0){
+    if (BoardFeatures.GREENFOOD.size() == 0) {
       return null;
     }
     return new NearestFood(BoardFeatures.GREENFOOD.get(tempI), tempDistance);
   }
 
-  public boolean isThereAnyRed(Location location){
+  public boolean isThereAnyRed(Location location) {
 
-    for (StepAndLocation stepAndLocationRed: BoardFeatures.REDFOOD){
-        if (stepAndLocationRed.getLocation().getxIndis()==agent.getLastLocation().getLocation().getxIndis()){
-          if (agent.getLastLocation().getLocation().getyIndis()<stepAndLocationRed.getLocation().getyIndis() &&
-              stepAndLocationRed.getLocation().getyIndis() <
-          location.getyIndis()
-          ){
-            return true;
-          }
-
+    for (StepAndLocation stepAndLocationRed : BoardFeatures.REDFOOD) {
+      if (stepAndLocationRed.getLocation().getxIndis() == agent.getLastLocation().getLocation().getxIndis()) {
+        if (agent.getLastLocation().getLocation().getyIndis() < stepAndLocationRed.getLocation().getyIndis() &&
+            stepAndLocationRed.getLocation().getyIndis() <
+                location.getyIndis()
+        ) {
+          return true;
         }
-        if (stepAndLocationRed.getLocation().getyIndis()==agent.getLastLocation().getLocation().getyIndis()){
-          if (agent.getLastLocation().getLocation().getxIndis()<stepAndLocationRed.getLocation().getxIndis()&&
-          stepAndLocationRed.getLocation().getxIndis()<location.getxIndis()
-          ){
-            return true;
-          }
 
-        }
       }
-  return false;
+      if (stepAndLocationRed.getLocation().getyIndis() == agent.getLastLocation().getLocation().getyIndis()) {
+        if (agent.getLastLocation().getLocation().getxIndis() < stepAndLocationRed.getLocation().getxIndis() &&
+            stepAndLocationRed.getLocation().getxIndis() < location.getxIndis()
+        ) {
+          return true;
+        }
+
+      }
+    }
+    return false;
   }
 }

@@ -1,9 +1,6 @@
 package com.company;
 
-import com.company.datastructure.AgentAndNearestFood;
-import com.company.datastructure.EatValueAndLocation;
-import com.company.datastructure.Location;
-import com.company.datastructure.StepAndLocation;
+import com.company.datastructure.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,8 +10,11 @@ import java.util.List;
 public class Agents {
   private Integer agentCode;
   private Integer[][] ateFoods;
-  private Integer lastScore;
+  private Integer lastScore=0;
   public Integer step;
+ public Integer totalGreen=0;
+ public Integer totalRed=0;
+ public Integer totalFree=0;
   public Transactions transactions;
   public List<StepAndLocation> locations=new ArrayList<>();
   public StepAndLocation lastLocationEntity;
@@ -24,6 +24,19 @@ public class Agents {
     this.agentCode = agentCode;
     this.step=1;
     transactions=new Transactions(this);
+  }
+
+  public void addEatValueAndLocation(EatValueAndLocation eatValueAndLocation){
+    this.eatValueAndLocations.add(eatValueAndLocation);
+    lastScore+=eatValueAndLocation.getGreenOrRed();
+    if (eatValueAndLocation.getGreenOrRed()== Color.GREEN.getValue()){
+      totalGreen++;
+    }else if (eatValueAndLocation.getGreenOrRed()==Color.RED.getValue()){
+      totalRed++;
+    }
+    else {
+      totalFree++;
+    }
   }
 
   public Integer getAgentCode() {
